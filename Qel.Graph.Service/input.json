@@ -1,0 +1,221 @@
+{
+    "Nodes": [
+      {
+          "text": "potatoes",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "eggs",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "cucumbers",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "onions",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "radishes",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "dill",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "sausage",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "water",
+          "form": "ellipse",
+          "label": null
+      },
+      {
+          "text": "saucepan",
+          "form": "rectangle",
+          "label": "ingredient_saucepan"
+      },
+      {
+          "text": "saucepan",
+          "form": "rectangle",
+          "label": "boiling_saucepan"
+      },
+      {
+          "text": "potatoes",
+          "form": "ellipse",
+          "label": "boiled_potatoes"
+      },
+      {
+          "text": "eggs",
+          "form": "ellipse",
+          "label": "boiled_eggs"
+      },
+      {
+          "text": "chop",
+          "form": "rectangle",
+          "label": "chopping_board"
+      },
+      {
+          "text": "cucumbers",
+          "form": "ellipse",
+          "label": "chopped_cucumbers"
+      },
+      {
+          "text": "radishes",
+          "form": "ellipse",
+          "label": "chopped_radishes"
+      },
+      {
+          "text": "onions",
+          "form": "ellipse",
+          "label": "chopped_onions"
+      },
+      {
+          "text": "dill",
+          "form": "ellipse",
+          "label": "chopped_dill"
+      },
+      {
+          "text": "sausage",
+          "form": "ellipse",
+          "label": "chopped_sausage"
+      },
+      {
+          "text": "peel",
+          "form": "rectangle",
+          "label": null
+      },
+      {
+          "text": "eggs",
+          "form": "ellipse",
+          "label": "peeled_eggs"
+      },
+      {
+          "text": "potatoes",
+          "form": "ellipse",
+          "label": "peeled_potatoes"
+      }
+  ],
+    "Edges": [
+      {
+        "from": "potatoes",
+        "to": "boiling_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "eggs",
+        "to": "boiling_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "boiling_saucepan",
+        "to": "boiled_eggs",
+        "label": "hard boil"
+    },
+    {
+        "from": "boiling_saucepan",
+        "to": "boiled_potatoes",
+        "label": "hard boil"
+    },
+    {
+        "from": "cucumbers",
+        "to": "chopped_cucumbers",
+        "label": "chop"
+    },
+    {
+        "from": "radishes",
+        "to": "chopped_radishes",
+        "label": "chop"
+    },
+    {
+        "from": "onions",
+        "to": "chopped_onions",
+        "label": "chop"
+    },
+    {
+        "from": "dill",
+        "to": "chopped_dill",
+        "label": "chop"
+    },
+    {
+        "from": "sausage",
+        "to": "chopped_sausage",
+        "label": "chop"
+    },
+    {
+        "from": "boiled_eggs",
+        "to": "peeled_eggs",
+        "label": "peel"
+    },
+    {
+        "from": "potatoes",
+        "to": "peeled_potatoes",
+        "label": "peel"
+    },
+    {
+        "from": "peeled_potatoes",
+        "to": "chopped_potatoes",
+        "label": "chop"
+    },
+    {
+        "from": "peeled_eggs",
+        "to": "chopped_eggs",
+        "label": "chop"
+    },
+    {
+        "from": "chopped_cucumbers",
+        "to": "ingredient_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "chopped_radishes",
+        "to": "ingredient_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "chopped_onions",
+        "to": "ingredient_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "chopped_dill",
+        "to": "ingredient_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "chopped_sausage",
+        "to": "ingredient_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "chopped_potatoes",
+        "to": "ingredient_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "chopped_eggs",
+        "to": "ingredient_saucepan",
+        "label": "put"
+    },
+    {
+        "from": "ingredient_saucepan",
+        "to": "cooked_dish",
+        "label": "boil"
+    }
+    ],
+    "Options": {
+      "edges_color": "green",
+      "nodes_color": "red",
+      "directed": true
+    }
+  }

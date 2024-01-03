@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Append Curly Braces</title>
+    <script src="frontend.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <!-- Constant dropdown field for "form" -->
+    <label for="formDropdown">Select form:</label>
+    <select id="formDropdown">
+        <option value="rectangle">Rectangle</option>
+        <option value="ellipse">Ellipse</option>
+    </select>
+    <textarea id="content" rows="4" cols="50">This is some text with the word potatoes.</textarea>
+    <table id="edgeTable">
+        <thead>
+            <tr>
+                <th>To</th>
+                <th>From</th>
+                <th>Label</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div class="edge-container">
+        <label for="fromDropdown">From:</label>
+        <select class="nodeDropdown" id="fromDropdown">
+            <option value="custom">Custom</option>
+        </select>
+
+        <label for="toDropdown">To:</label>
+        <select class="nodeDropdown" id="toDropdown">
+            <option value="custom">Custom</option>
+        </select>
+
+        <label for="labelDropdown">Label:</label>
+        <select class="labelDropdown" id="labelDropdown">
+            <option value="custom">Custom</option>
+        </select>
+
+        <button onclick="addEdge()">Create Edge</button>
+
+    </div>
+
+</body>
+
+</html>
