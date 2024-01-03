@@ -21,7 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{0BD01D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qel.Graph.Common", "Qel.Graph.Common\Qel.Graph.Common.csproj", "{16F42FFD-B3E9-46D5-BD91-22D5F7A787FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qel.Graph.Web", "Qel.Graph.Web\Qel.Graph.Web.csproj", "{5CB9D8A9-5771-42CE-B9E2-AFCB77B377E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Qel.Graph.Web", "Qel.Graph.Web\Qel.Graph.Web.csproj", "{5CB9D8A9-5771-42CE-B9E2-AFCB77B377E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qel.Graph.Domain", "Qel.Graph.Domain\Qel.Graph.Domain.csproj", "{DDC94684-C39E-4D1D-8314-17C489BC8619}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{5CB9D8A9-5771-42CE-B9E2-AFCB77B377E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CB9D8A9-5771-42CE-B9E2-AFCB77B377E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CB9D8A9-5771-42CE-B9E2-AFCB77B377E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDC94684-C39E-4D1D-8314-17C489BC8619}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC94684-C39E-4D1D-8314-17C489BC8619}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC94684-C39E-4D1D-8314-17C489BC8619}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC94684-C39E-4D1D-8314-17C489BC8619}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{7F70333C-8A09-4FFA-926E-BB3BE3D4BB8A} = {843091DB-BF31-4298-8D89-3F767056ED78}
 		{CC89B6F4-72CB-4E61-AECC-B584E9F7C294} = {9824778D-E51F-46F0-BF60-8B97F846EFB1}
 		{16F42FFD-B3E9-46D5-BD91-22D5F7A787FC} = {0BD01D3D-0F0F-448A-AFA4-F0D58489509B}
+		{DDC94684-C39E-4D1D-8314-17C489BC8619} = {0BD01D3D-0F0F-448A-AFA4-F0D58489509B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9E2C998D-D185-4BCB-898F-B27970181F34}

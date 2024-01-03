@@ -33,8 +33,13 @@ namespace Qel.Graph.Web
 
             app.UseAuthorization();
 
-            app.MapRazorPages();
-
+            app.MapPost("/uploadstream", async (IConfiguration config, HttpContext context) =>
+            {
+                var filePath = Path.Combine(Path.GetRandomFileName(), ".json");
+                await using var writeStream = File.Create(filePath);
+                await context.Request.Body.CopyToAsync(writeStream);
+            });
+            
             app.Run();
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Qel.Graph.Engine.Models;
+namespace Qel.Graph.Domain.Models;
 
 public class CustomOption
 {

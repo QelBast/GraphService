@@ -1,4 +1,4 @@
-﻿using Qel.Graph.Engine.Models;
+﻿using Qel.Graph.Domain.Models;
 using System.Text.Json;
 
 namespace Qel.Graph.Engine;

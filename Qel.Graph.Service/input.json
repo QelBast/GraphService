@@ -1,5 +1,5 @@
 {
-    "Nodes": [
+    "nodes": [
       {
           "text": "potatoes",
           "form": "ellipse",
@@ -106,7 +106,7 @@
           "label": "peeled_potatoes"
       }
   ],
-    "Edges": [
+    "edges": [
       {
         "from": "potatoes",
         "to": "boiling_saucepan",
@@ -213,7 +213,7 @@
         "label": "boil"
     }
     ],
-    "Options": {
+    "options": {
       "edges_color": "green",
       "nodes_color": "red",
       "directed": true

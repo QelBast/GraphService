@@ -1,15 +1,15 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Qel.Graph.Engine.Models;
+namespace Qel.Graph.Domain.Models;
 
 public class CustomEdge
 {
     [JsonPropertyName("from")]
-    public string? From { get; set; }
+    public string? from { get; set; }
 
     [JsonPropertyName("to")]
-    public string? To { get; set; }
+    public string? to { get; set; }
 
     [JsonPropertyName("label")]
-    public string? Label { get; set; }
+    public string? label { get; set; }
 }

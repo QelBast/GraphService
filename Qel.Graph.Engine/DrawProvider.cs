@@ -1,7 +1,7 @@
 ﻿using DotNetGraph.Compilation;
 using DotNetGraph.Core;
 using DotNetGraph.Extensions;
-using Qel.Graph.Engine.Models;
+using Qel.Graph.Domain.Models;
 
 namespace Qel.Graph;
 
@@ -60,13 +60,13 @@ public class DrawProvider
     {
         // Or with nodes and attributes
         var myEdge = new DotEdge()
-        .From(edgeData.From)
-            .To(edgeData.To)
+        .From(edgeData.from)
+            .To(edgeData.to)
             .WithArrowHead(DotEdgeArrowType.Box)
             .WithArrowTail(DotEdgeArrowType.Diamond)
             .WithColor(option.EdgesColor)
             .WithFontColor(DotColor.Black)
-            .WithLabel(edgeData.Label)
+            .WithLabel(edgeData.label)
             .WithStyle(DotEdgeStyle.Dashed)
             .WithPenWidth(1.5);
 

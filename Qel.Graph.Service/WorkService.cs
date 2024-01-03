@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Qel.Graph.Engine;
-using Qel.Graph.Engine.Models;
+using Qel.Graph.Domain.Models;
 
 namespace Qel.Graph;
 
@@ -16,7 +16,7 @@ public class WorkService : IHostedService
 
         Console.WriteLine($"Был создан граф {graph!.Identifier.Value}");
         // каждый узел
-        foreach (var nodeData in graphData.Nodes!)
+        foreach (var nodeData in graphData.nodes!)
         {
             var node = DrawProvider.CreateNode(nodeData, graphData.Options, ref graph);
 
@@ -24,7 +24,7 @@ public class WorkService : IHostedService
         }
 
         // каждая связь
-        foreach (var edgeData in graphData.Edges!)
+        foreach (var edgeData in graphData.edges!)
         {
             var edge = DrawProvider.CreateEdge(edgeData, graphData.Options, ref graph);
 

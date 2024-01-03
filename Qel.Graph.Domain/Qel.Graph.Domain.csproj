@@ -6,12 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="DotNetGraph" Version="3.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Qel.Graph.Domain\Qel.Graph.Domain.csproj" />
-  </ItemGroup>
-
 </Project>
