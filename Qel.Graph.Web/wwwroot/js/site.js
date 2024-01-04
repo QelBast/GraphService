@@ -16,9 +16,12 @@ function removeEdge(button) {
 }
 
 
+function replaceImage(imageSource){
+    document.getElementById("pictura").src = imageSource;
+}
 
-function queryBackend(payload){
-    // NOT_IMPLEMENTED
+
+function queryBackendGraphDraw(payload){
     console.log(payload);
     var inputJson = JSON.stringify(payload)
     $.ajax({
@@ -28,12 +31,36 @@ function queryBackend(payload){
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function (response) {
             if (response !== undefined && response !== null) {
-
+                console.log(response);
+                replaceImage(response);
             } else {
                 console.error('response_Svg is undefined or null');
             }
         }
     });
+}
+
+
+function queryBackendSave(payload){
+    console.log(payload);
+    var saveJson = JSON.stringify(payload)
+    $.ajax({
+        url: '/Home/WorkWithSaveJson',
+        type: 'POST',
+        data: "saveJson="+saveJson,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        success: function (response) {
+            if (response !== undefined && response !== null) {
+
+            } else {
+                
+            }
+        }
+    });
+}
+
+function queryBackendLoad(){
+    // NOT IMPLEMENTED
 }
 
 function getAllNodes(){
@@ -52,6 +79,14 @@ function getAllNodes(){
     arraySecunda = arrayPrima.map(e=>new GraphNode(...e.split(":")));
     return arraySecunda;
 
+}
+
+function getEdgesColor(){
+    return document.getElementById("nodeColorDropdown").value || "black";
+}
+
+function getNodesColor(){
+    return document.getElementById("edgeColorDropdown").value || "black";
 }
 
 function tableToJson() {
@@ -82,6 +117,8 @@ function getGlobalState(){
         edges: edges,
         nodeTextNames: nodes.map((e)=>e['text']),
         edgeNames: edges.map((e)=>e['label']),
+        edgesColor: getEdgesColor(),
+        nodesColor: getNodesColor(),
     }
 }
 
@@ -89,7 +126,19 @@ function getProjectState(){
     return {
         edges: tableToJson(),
         text: getText(),
+        project_guid: getCurrentGUID(),
+        edges_color: getEdgesColor(),
+        nodes_color: getNodesColor(),
     }
+}
+
+function saveProjectState(){
+    projectState = getProjectState();
+    queryBackendSave(projectState);
+}
+
+function loadProjectState(guid){
+    // NOT IMPLEMENTED
 }
 
 function orderGraph(){
@@ -97,6 +146,10 @@ function orderGraph(){
     return queryBackend({
         nodes:globalState.nodes,
         edges:globalState.edges,
+        options:{
+            edges_color: getEdgesColor(),
+            nodes_color: getNodesColor(),
+        }
     })
 }
 
@@ -151,7 +204,8 @@ function addNode(targetText) {
         // Replace every occurrence of the selected text with the modified text
         const modifiedText = label ? `{{${targetText}:${selectedForm}:${label}}}` : `{{${targetText}:${selectedForm}}}`;
         textField.value = textField.value.replaceAll(targetText, modifiedText);
-        renewLabelDropDowns(getGlobalState()['nodeTextNames'], ".nodeDropdown")
+        renewLabelDropDowns(getGlobalState()['nodeTextNames'], ".nodeDropdown");
+        orderGraph();
     }
 }
 
@@ -201,6 +255,7 @@ function addEdge() {
 
     addRowToEdgeTable(fromValue, toValue, labelValue);
     renewLabelDropDowns(getGlobalState()['edgeNames'], ".labelDropdown");
+    orderGraph();
 }
 
 
@@ -218,13 +273,33 @@ function eventListener (event) {
 }
 
 
+function generateGUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
 
 
+function getCurrentGUID(){
+// Check if the URL already has an ID
+const urlParams = new URLSearchParams(window.location.search);
+const existingID = urlParams.get('project_guid');
+return existingID;
+}
 
 
-
-
-console.log(getAllNodes())
+console.log(getAllNodes());
 let undoStack = []; // Stack to keep track of changes
  document.addEventListener("keydown", eventListener);
+
+
+if (!getCurrentGUID()) {
+  const newID = generateGUID(); 
+  window.history.replaceState({}, document.title, `?project_guid=${newID}`);
+} else {
+    loadProjectState(getCurrentGUID());
+}
+
 
