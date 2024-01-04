@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <button onclick="saveProjectState()">Save</button>
     <table id="edgeTable">
         <thead>
             <tr>
@@ -47,11 +48,33 @@
     </div>
 
     <!-- Constant dropdown field for "form" -->
-    <label for="formDropdown">Select form:</label>
-    <select id="formDropdown">
-        <option value="rectangle">Rectangle</option>
-        <option value="ellipse">Ellipse</option>
-    </select>
+    <div>
+        <label for="formDropdown">Select form:</label>
+        <select id="formDropdown">
+            <option value="rectangle">Rectangle</option>
+            <option value="ellipse">Ellipse</option>
+        </select>
+
+        <label for="nodeColorDropdown">Select node color:</label>
+        <select id="nodeColorDropdown">
+            <option value="black">Black</option>
+            <option value="blue">Blue</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+        </select>
+
+        <label for="edgeColorDropdown">Select edge color:</label>
+        <select id="edgeColorDropdown">
+            <option value="black">Black</option>
+            <option value="blue">Blue</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+        </select>
+
+
+
+    </div>
+    
     <textarea id="content" rows="4" cols="50">This is some text with the word potatoes.</textarea>
     <img id="pictura" src="placeholder.svg" alt="Funky SVG Image">
 
