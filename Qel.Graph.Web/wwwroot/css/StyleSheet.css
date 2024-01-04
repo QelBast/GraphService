@@ -1,84 +1,116 @@
-﻿#content {
-    width: 40vw; /* Set the width to 40% of the viewport width */
-    height: 60vh; /* Set the height to 200 pixels or adjust as needed */
-}
-/* Reset some default styles */
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-ol,
-li,
-figure,
-figcaption,
-blockquote,
-dl,
-dd,
-dt {
+﻿/* Reset the Universe */
+* {
     margin: 0;
     padding: 0;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    line-height: 1.6;
-    background-color: #f0f0f0;
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-select,
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     box-sizing: border-box;
 }
 
-table {
-    width: 100%;
+/* Body, the vessel of insignificance */
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Labeling the futile form dropdown */
+label[for="formDropdown"] {
+    color: #999;
+}
+
+/* Centering the form dropdown in the void */
+#formDropdown {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border: 1px solid #666;
+    margin-bottom: 10px;
+}
+
+/* The text area for your thoughts – or lack thereof */
+#content {
+    width: 50%;
+    margin: 0; /* Adjusted to start from the left corner */
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #333;
+    border: 1px solid #666;
+    color: #fff;
+}
+
+
+/* The cosmic SVG image – bigger than your existential crisis */
+#pictura {
+    width: 50%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* The edge container – where connections are as transient as bonds */
+.edge-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+/* Buttons, the ultimate exercise in futility */
+button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The cosmic edges table floating in the void */
+#edgeTable {
+    width: 50%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-th,
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-.button-container {
-    margin-top: 20px;
-}
-
-button {
-    background-color: #4caf50;
+/* Header cells, because every structure needs a facade */
+#edgeTable th {
+    background-color: #666;
     color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding: 10px;
 }
 
-.button-container button:hover {
-    background-color: #45a049;
+/* Cells, where data is as relevant as stardust */
+#edgeTable td {
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border: 1px solid #666;
+}
+
+/* Aligning the dropdowns with the cosmic forces */
+.nodeDropdown,
+.labelDropdown {
+    width: 48%; /* A margin of error for the chaos */
+    margin-bottom: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    border: 1px solid #666;
+}
+
+/* Custom dropdown option styling – because who cares */
+.nodeDropdown option,
+.labelDropdown option {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Styling the container for each interaction – fleeting moments in the abyss */
+.edge-container label,
+.edge-container select {
+    margin-bottom: 10px;
 }

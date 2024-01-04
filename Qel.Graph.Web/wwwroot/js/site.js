@@ -1,6 +1,6 @@
 ﻿const textField = document.getElementById("content");
 
-function getText() {
+function getText(){
     // return Array.from(document.querySelectorAll("p"))
     // .map(e => e.textContent)
     // .join('\n');
@@ -15,7 +15,9 @@ function removeEdge(button) {
     row.parentNode.removeChild(row);
 }
 
-function queryBackend(payload) {
+
+
+function queryBackend(payload){
     // NOT_IMPLEMENTED
     console.log(payload);
     var inputJson = JSON.stringify(payload)
@@ -26,7 +28,7 @@ function queryBackend(payload) {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function (response) {
             if (response !== undefined && response !== null) {
-                
+
             } else {
                 console.error('response_Svg is undefined or null');
             }
@@ -34,20 +36,20 @@ function queryBackend(payload) {
     });
 }
 
-function getAllNodes() {
+function getAllNodes(){
 
     function GraphNode(text, form, label) {
         this.text = text.trim().toLowerCase();
         this.form = form.trim().toLowerCase();
         this.label = label || null; // Set label to null if not provided
     }
-
+    
     allText = getText();
-
+    
     const regexPattern = /{{([\w:]+)}}/g;
 
-    arrayPrima = [...allText.matchAll(regexPattern)].map(e => e[1]);
-    arraySecunda = arrayPrima.map(e => new GraphNode(...e.split(":")));
+    arrayPrima = [...allText.matchAll(regexPattern)].map(e=>e[1]);
+    arraySecunda = arrayPrima.map(e=>new GraphNode(...e.split(":")));
     return arraySecunda;
 
 }
@@ -71,36 +73,38 @@ function tableToJson() {
     return data
 }
 
-function getGlobalState() {
+
+function getGlobalState(){
     nodes = getAllNodes();
     edges = tableToJson();
-    console.log(nodes);
-    console.log(edges);
     return {
         nodes: nodes,
         edges: edges,
-        nodeTextNames: nodes.map((e) => e['text']),
-        edgeNames: edges.map((e) => e['label']),
+        nodeTextNames: nodes.map((e)=>e['text']),
+        edgeNames: edges.map((e)=>e['label']),
     }
 }
 
-function getProjectState() {
+function getProjectState(){
     return {
         edges: tableToJson(),
         text: getText(),
     }
 }
 
-function orderGraph() {
+function orderGraph(){
     globalState = getGlobalState();
     return queryBackend({
-        nodes: globalState.nodes,
-        edges: globalState.edges,
+        nodes:globalState.nodes,
+        edges:globalState.edges,
     })
 }
 
-function undo() {
 
+
+
+function undo() {
+    
 
     if (undoStack.length > 0) {
         // Pop the previous value from the stack and set it back to the text field
@@ -108,10 +112,11 @@ function undo() {
     }
 }
 
-function renewLabelDropDowns(valuesArray, selector) {
+
+function renewLabelDropDowns(valuesArray, selector){
     console.log(valuesArray);
     // Get the dropdown elements
-    document.querySelectorAll(selector).forEach((toDropdown) => {
+    document.querySelectorAll(selector).forEach((toDropdown)=>{
         // Clear existing options
         toDropdown.innerHTML = "";
         // Add options to the dropdown
@@ -129,6 +134,7 @@ function renewLabelDropDowns(valuesArray, selector) {
     })
     return
 }
+
 
 function addNode(targetText) {
     if (targetText) {
@@ -149,6 +155,7 @@ function addNode(targetText) {
     }
 }
 
+
 function addRowToEdgeTable(from, to, edge) {
     // Get the table body
     var tbody = document.getElementById("edgeTable").getElementsByTagName("tbody")[0];
@@ -166,56 +173,58 @@ function addRowToEdgeTable(from, to, edge) {
 
 function addEdge() {
     const fromDropdown = document.getElementById("fromDropdown");
-    if (fromDropdown.value === "custom") {
+    if (fromDropdown.value === "custom"){
         fromValue = prompt("Enter custom 'from' value:")
         addNode(fromValue)
     } else {
         fromValue = fromDropdown.value
     }
-
+    
     const toDropdown = document.getElementById("toDropdown");
-    if (toDropdown.value === "custom") {
+    if (toDropdown.value === "custom"){
         toValue = prompt("Enter custom 'to' value:")
         addNode(toValue)
     } else {
         toValue = toDropdown.value
     }
 
+
     const labelDropdown = document.getElementById("labelDropdown");
     const labelValue = labelDropdown.value === "custom" ? prompt("Enter custom 'label' value:") : labelDropdown.value;
 
+    // You can do something with the values here, for now, let's just log them
     console.log("Edge created with values:");
     console.log("From:", fromValue);
     console.log("To:", toValue);
     console.log("Label:", labelValue);
 
+
     addRowToEdgeTable(fromValue, toValue, labelValue);
     renewLabelDropDowns(getGlobalState()['edgeNames'], ".labelDropdown");
 }
 
-function eventListener(event) {
+
+function eventListener (event) {
     if (event.ctrlKey && event.key === "z") { // Check if Ctrl+Z is pressed
         undo(); // Perform undo operation
     } else if (event.altKey && event.key === "x") { // Check if Alt+X is pressed
         const textField = document.getElementById("content");
         const selectedText = textField.value.substring(textField.selectionStart, textField.selectionEnd);
         addNode(selectedText);
-
+        
     } else if (event.altKey && event.key === "c") { // Check if Alt+C is pressed
         addEdge();
     }
 }
 
+
+
+
+
+
+
+
 console.log(getAllNodes())
 let undoStack = []; // Stack to keep track of changes
-document.addEventListener("keydown", eventListener);
+ document.addEventListener("keydown", eventListener);
 
-queryBackend({
-    'nodes': [{'text':'1', 'form':'rectangle'}], 'edges': [
-        {
-            "to": "1",
-            "from": "3",
-            "label": "5"
-        }
-    ]
-})
