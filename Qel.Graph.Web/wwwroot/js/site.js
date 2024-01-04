@@ -46,7 +46,7 @@ function getAllNodes(){
     
     allText = getText();
     
-    const regexPattern = /{{([\w:]+)}}/g;
+    const regexPattern = /{{([\w: \-.,]+)}}/g;
 
     arrayPrima = [...allText.matchAll(regexPattern)].map(e=>e[1]);
     arraySecunda = arrayPrima.map(e=>new GraphNode(...e.split(":")));
