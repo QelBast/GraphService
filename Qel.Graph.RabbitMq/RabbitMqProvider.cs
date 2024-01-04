@@ -36,6 +36,11 @@ public class RabbitMqProvider : IRabbtiMqProvider
                            autoAck: true,
                            consumer: consumer);
         var result = await tcs.Task;
+        if(result != null) 
+        {
+            Console.WriteLine($"Сообщение получено: {result}");
+        }
+        
         return result;
     }
 

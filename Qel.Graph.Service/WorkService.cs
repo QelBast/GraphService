@@ -13,13 +13,14 @@ public class WorkService : IHostedService
 
     public async Task Process()
     {
+        Console.WriteLine("Сервис Qel.Graph начал работу!");
         var rabbit = new RabbitMqProvider();
         var inputMessage = await rabbit.Consume("jsonToGraph");
-        if (inputMessage != null) 
+        if (inputMessage != null)
         {
             CustomGraph? graphData = JsonSerializer.Deserialize<CustomGraph?>(inputMessage);
 
-            if (graphData!.Options == null) 
+            if (graphData!.Options == null)
             {
                 graphData.Options = new()
                 {
@@ -53,6 +54,10 @@ public class WorkService : IHostedService
             var fullPath = $@"{Directory.GetCurrentDirectory()}\{file}";
             rabbit.Produce(fullPath, "graphToWeb", "svg", "amq.topic");
         }
+        //while (true)
+        //{
+            
+        //}
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
