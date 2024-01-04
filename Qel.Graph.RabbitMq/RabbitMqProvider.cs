@@ -1,10 +1,11 @@
-﻿using RabbitMQ.Client;
+﻿using Qel.Graph.RabbitMq;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
 namespace Qel.Graph.Web.Processing;
 
-public class RabbitMqProvider
+public class RabbitMqProvider : IRabbtiMqProvider
 {
     public void Produce(string message, string queueName, string routingKey, string exchangeName) 
     {

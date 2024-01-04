@@ -21,12 +21,23 @@ public class HomeController(ILogger<HomeController> logger) : Controller
         rabbit.Produce(inputJson, "jsonToGraph", "json", "amq.topic");
 
         string? filePath = null;
+
         while (filePath == null) 
         {
             filePath = await rabbit.Consume("graphToWeb");
         }
-        var content = System.IO.File.ReadAllBytes(filePath);
+        Directory.CreateDirectory(@"~\imgs");
+        string pathOnWww = @$"~\imgs\{Path.GetFileName(filePath)}";
 
-        return File(content, "image/svg+xml");
+        System.IO.File.Copy(filePath, pathOnWww);
+
+        if(System.IO.File.Exists(pathOnWww))
+        {
+            return Content("OK");
+        }
+        else
+        {
+            return Content("Ошибка. Файл не найден!");
+        }
     }
 }
