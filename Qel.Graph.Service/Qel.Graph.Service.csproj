@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Qel.Graph.Common\Qel.Graph.Common.csproj" />
     <ProjectReference Include="..\Qel.Graph.Dal\Qel.Graph.Dal.csproj" />
     <ProjectReference Include="..\Qel.Graph.Engine\Qel.Graph.Engine.csproj" />
+    <ProjectReference Include="..\Qel.Graph.RabbitMq\Qel.Graph.RabbitMq.csproj" />
   </ItemGroup>
 
   <ItemGroup>

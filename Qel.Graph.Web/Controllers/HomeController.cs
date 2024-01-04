@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Qel.Graph.Domain.Models;
+using Qel.Graph.Web.Processing;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace Qel.Graph.Web.Controllers;
@@ -14,33 +14,19 @@ public class HomeController(ILogger<HomeController> logger) : Controller
         return View();
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
     [HttpPost]
-    public IActionResult WorkWithInputJson([FromBody] CustomGraph inputJson)
+    public async Task<IActionResult> WorkWithInputJson(string inputJson)
     {
-        //this.Request.Body.Read();
-        if (ModelState.IsValid)
-        {
-            // Add user to server  
+        var rabbit = new RabbitMqProvider();
+        rabbit.Produce(inputJson, "jsonToGraph", "json", "amq.topic");
 
-            return Json(new { success = true, message = "Operation was successful" });
-        }
-        else
+        string? filePath = null;
+        while (filePath == null) 
         {
-            return Json(new { success = false, message = "SOSNOOLEY" });
+            filePath = await rabbit.Consume("graphToWeb");
         }
-        var test1 = inputJson.edges;
-    }
+        var content = System.IO.File.ReadAllBytes(filePath);
 
-    [HttpGet]
-    public FileResult DowloadFile(string filePath) 
-    {
-        string path = filePath;
-        byte[] fileBytes = System.IO.File.ReadAllBytes(path);
-        return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, path);
+        return File(content, "image/svg+xml");
     }
 }

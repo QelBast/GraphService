@@ -11,10 +11,12 @@
   <ItemGroup>
     <PackageReference Include="Grpc.Core" Version="2.46.6" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Qel.Graph.Domain\Qel.Graph.Domain.csproj" />
+    <ProjectReference Include="..\Qel.Graph.RabbitMq\Qel.Graph.RabbitMq.csproj" />
   </ItemGroup>
 
 </Project>

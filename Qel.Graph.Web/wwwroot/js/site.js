@@ -18,16 +18,18 @@ function removeEdge(button) {
 function queryBackend(payload) {
     // NOT_IMPLEMENTED
     console.log(payload);
-
+    var inputJson = JSON.stringify(payload)
     $.ajax({
         url: '/Home/WorkWithInputJson',
         type: 'POST',
-        dataType: 'json',
-        data: { inputJson: payload } ,
-        contentType: 'application/json; charset=utf-8',
+        data: "inputJson="+inputJson,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function (response) {
-            window.location.href = response.url;
-            console.log(response);
+            if (response !== undefined && response !== null) {
+                
+            } else {
+                console.error('response_Svg is undefined or null');
+            }
         }
     });
 }

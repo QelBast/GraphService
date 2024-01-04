@@ -26,4 +26,21 @@ public class Converter
 
         process.WaitForExit();
     }
+
+    private static string GetGraphvizPath() //TODO: По-хорошему бы заменить прямой путь на поиск переменной среды в этом методе
+    {
+        string? pathEnvVar = Environment.GetEnvironmentVariable("PATH");
+        string[]? paths = pathEnvVar?.Split(';');
+        if(paths is not null)
+        {
+            foreach (var path in paths)
+            {
+                string exePath = Path.Combine(path, "dot.exe");
+
+                if (File.Exists(exePath))
+                    return exePath;
+            }
+        }
+        throw new Exception("В переменных среды не найден путь к Graphviz");
+    }
 }

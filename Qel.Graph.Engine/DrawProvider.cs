@@ -76,11 +76,10 @@ public class DrawProvider
         return myEdge;
     }
 
-    public static async void WriteToFile(
+    public static async Task<string> WriteToFile(
         DotGraph? graph
         )
     {
-        
         using var writer = new StringWriter();
         var context = new CompilationContext(writer, new CompilationOptions());
         await graph!.CompileAsync(context);
@@ -100,8 +99,9 @@ public class DrawProvider
         // конвертация в .svg
         Converter converter = new();
         Converter.ConvertDotToSvg(@$"{filesName}.dot", @$"{filesName}.svg");
-
         Console.WriteLine($"Создан файл {filesName}.svg");
+
+        return @$"{filesName}.svg";
     }
     
 }
