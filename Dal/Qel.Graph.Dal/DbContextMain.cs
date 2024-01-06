@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using Qel.Graph.Dal.Entities;
 using System.Reflection;
 using File = Qel.Graph.Dal.Entities.File;
 
@@ -12,6 +13,9 @@ namespace Qel.Graph.Dal;
 public class DbContextMain(DbContextOptions<DbContextMain> options) : BaseDbContext(options)
 {
     public virtual DbSet<File> Files { get; set; }
+    public virtual DbSet<GraphEdgesCollection> EdgesCollection { get; set; }
+    public virtual DbSet<Edge> Edges { get; set; }
+    public virtual DbSet<Node> Nodes { get; set; }
 
     /// <summary>
     /// Переопределяет метод для дальнейшей настройки модели, по заданным конфигурациям,

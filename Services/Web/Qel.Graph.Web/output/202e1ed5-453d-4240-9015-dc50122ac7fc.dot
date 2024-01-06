@@ -1,0 +1,33 @@
+digraph "202e1ed5-453d-4240-9015-dc50122ac7fc" {
+	some [
+		"shape"="rectangle"
+		"label"="some"
+		"color"="red"
+		"fillcolor"="red"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	potatoes [
+		"shape"="rectangle"
+		"label"="potatoes"
+		"color"="red"
+		"fillcolor"="red"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	"" -> "" [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="blue"
+		"fontcolor"="#000000"
+		"label"=""
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+}

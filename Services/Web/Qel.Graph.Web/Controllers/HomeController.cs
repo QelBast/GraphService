@@ -97,10 +97,29 @@ public class HomeController(ILogger<HomeController> logger, IWebHostEnvironment 
             await db.Files.AddAsync(new Dal.Entities.File
             {
                 Id = entity!.Id,
-                Edges = JsonSerializer.Serialize(entity.Edges),
                 Text = entity!.Text,
-                EdgesColor = entity?.EdgesColor,
-                NodesColor = entity?.NodesColor,
+                GraphEdges = new Dal.Entities.GraphEdgesCollection //TODO: Дописать и сделать одннобразными json'ы ходящие во фронтенде
+                {
+                    Edge = new Dal.Entities.Edge
+                    {
+                        FromNode = new Dal.Entities.Node
+                        {
+                            Color = "",
+                            Text = "",
+                            Label = "",
+                            Shape = "",
+                        },
+                        ToNode = new Dal.Entities.Node
+                        {
+                            Color = "",
+                            Text = "",
+                            Label = "",
+                            Shape = "",
+                        },
+                        Color = "",
+                        Label = "",
+                    }
+                },
                 IsDirected = entity!.IsDirected,
                 CreationDateTime = DateTime.UtcNow,
                 ModifyDateTime = DateTime.UtcNow,

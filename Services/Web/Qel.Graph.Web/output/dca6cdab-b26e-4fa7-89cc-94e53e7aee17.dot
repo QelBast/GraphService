@@ -1,0 +1,51 @@
+digraph "dca6cdab-b26e-4fa7-89cc-94e53e7aee17" {
+	some [
+		"shape"="rectangle"
+		"label"="some"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	with [
+		"shape"="rectangle"
+		"label"="with"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	some -> with [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="red"
+		"fontcolor"="#000000"
+		"label"=""
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+	some -> with [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="red"
+		"fontcolor"="#000000"
+		"label"=""
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+	some -> with [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="red"
+		"fontcolor"="#000000"
+		"label"=""
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+}

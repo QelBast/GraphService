@@ -1,0 +1,24 @@
+digraph "768481f8-0de8-4a78-a068-ef4b35b722bf" {
+	text [
+		"shape"="rectangle"
+		"label"="text"
+		"color"="black"
+		"fillcolor"="black"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	word [
+		"shape"="rectangle"
+		"label"="word"
+		"color"="black"
+		"fillcolor"="black"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+}

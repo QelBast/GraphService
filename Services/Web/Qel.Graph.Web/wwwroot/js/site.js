@@ -23,7 +23,7 @@ function replaceImage(imageSource) {
         (success) => {
             var img = document.getElementById("pictura");
             var timestamp = new Date().getTime();
-            img.src = imageSource + "?" + timestamp;
+            img.src = imageSource;
         }
     )
 }
@@ -67,6 +67,9 @@ function queryBackendSave(payload){
     });
 }
 
+
+
+
 function queryBackendLoad(guid){
     console.log(guid);
     $.ajax({
@@ -76,9 +79,9 @@ function queryBackendLoad(guid){
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function (response) {
             if (response !== undefined && response !== null) {
-                console.log(response);
-                guid = response['project_guid'];
-                replaceImage("imgs/" + guid + ".svg");
+                return processLoadResponse(response);
+                
+                
 
                 //TODO: написать восстановление данных с приходящего json'a
             } else {
@@ -167,11 +170,21 @@ function saveProjectState(){
     queryBackendSave(projectState);
 }
 
+function processLoadResponse(response) {
+    console.log(response);
+    guid = response['project_guid'];
+    replaceImage("imgs/" + guid + ".svg");
+    textField.value = response['text'];
+    document.getElementById("edgeColorDropdown").value = response['edges_color'];
+    document.getElementById("nodeColorDropdown").value = response['nodes_color'];
+    return response;
+}
 function loadProjectState(guid){
-    if (confirm("If you click the 'Cancel' button your current data will be lost. If you want to save them, press the 'OK' button")) {
+    /*if (confirm("If you click the 'Cancel' button your current data will be lost. If you want to save them, press the 'OK' button")) {
         saveProjectState();
-     }
-    queryBackendLoad(guid);
+     }*/
+    loadedData = queryBackendLoad(guid);
+    
 }
 
 function orderGraph(){

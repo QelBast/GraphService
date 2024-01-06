@@ -14,18 +14,9 @@ public class FileConfiguration : IEntityTypeConfiguration<File>
 
         builder.HasKey(e => e.Id);
         builder.Property(e => e.Id)
-               .ValueGeneratedNever();
-
-        builder.Property(e => e.Edges)
-               .HasMaxLength(128)
-               .IsRequired();        
+               .ValueGeneratedOnAdd();
+        
         builder.Property(e => e.Text)
-               .HasMaxLength(128)
-               .IsRequired();
-        builder.Property(e => e.EdgesColor)
-               .HasMaxLength(128)
-               .IsRequired();
-        builder.Property(e => e.NodesColor)
                .HasMaxLength(128)
                .IsRequired();
         builder.Property(e => e.IsDirected)
@@ -39,5 +30,10 @@ public class FileConfiguration : IEntityTypeConfiguration<File>
         builder.Property(e => e.IsDeleted)
                .HasDefaultValue(false)
                .IsRequired();
+
+        builder.HasOne(e => e.GraphEdges)
+                .WithMany()
+                .HasForeignKey(e => e.GraphId)
+                .IsRequired(false);
     }
 }
