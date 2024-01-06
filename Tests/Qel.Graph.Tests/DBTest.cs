@@ -11,14 +11,16 @@ public class DBTest
         
         db.Files.Add(new Dal.Entities.File { 
             IsDeleted = false, 
-            Json = "test", 
-            Path = "test", 
+            Text = "test", 
+            Edges = "test", 
+            EdgesColor = "test",
+            NodesColor = "test",
             CreationDateTime = DateTime.UtcNow,
             ModifyDateTime = DateTime.UtcNow,
         });
         db.SaveChanges();
 
-        var testAdd = db.Files.Where(x => x.Json == "test" && x.Path == "test").ToList();
+        var testAdd = db.Files.Where(x => x.Text == "test" && x.Edges == "test").ToList();
         Assert.NotEmpty(testAdd);
         Assert.NotNull(testAdd);
     }
@@ -27,11 +29,11 @@ public class DBTest
     public void DbContextMainTestRemove()
     {
         using var db = DbContextMain.CreateContext();
-        var testRemove = db.Files.Where(x => x.Json == "test" && x.Path == "test").ToList();
+        var testRemove = db.Files.Where(x => x.Text == "test" && x.Edges == "test").ToList();
         db.Files.RemoveRange(testRemove);
         db.SaveChanges();
 
-        var testAfterRemove = db.Files.Where(x => x.Json == "test" && x.Path == "test").ToList();
+        var testAfterRemove = db.Files.Where(x => x.Text == "test" && x.Edges == "test").ToList();
         //Assert.Empty(testAfterRemove);
         testAfterRemove.ForEach(x => Assert.True(x.IsDeleted));
     }

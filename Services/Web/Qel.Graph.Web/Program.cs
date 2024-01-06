@@ -1,3 +1,6 @@
+using Qel.Graph.Common;
+using Qel.Graph.Dal;
+
 namespace Qel.Graph.Web;
 
 /// <summary>
@@ -14,9 +17,9 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-        builder.Services.AddControllersWithViews();
-            //.AddRazorPages()
-            
+        builder.Services.ConfigureNpgsqlDatabase<DbContextMain>(builder.Configuration)
+                .AddControllersWithViews();
+        builder.Services.AddSignalR();
 
         var app = builder.Build();
 
@@ -29,7 +32,6 @@ public class Program
         if (!app.Environment.IsDevelopment())
         {
             app.UseExceptionHandler("/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
 
@@ -40,12 +42,14 @@ public class Program
 
         app.UseAuthorization();
 
-        app.MapPost("/uploadstream", async (IConfiguration config, HttpContext context) =>
-        {
-            var filePath = Path.Combine(Path.GetRandomFileName(), ".json");
-            await using var writeStream = File.Create(filePath);
-            await context.Request.Body.CopyToAsync(writeStream);
-        });
+        //app.MapHub<ChatHub>("/chatHub");
+
+        //app.MapPost("/uploadstream", async (IConfiguration config, HttpContext context) =>
+        //{
+        //    var filePath = Path.Combine(Path.GetRandomFileName(), ".json");
+        //    await using var writeStream = File.Create(filePath);
+        //    await context.Request.Body.CopyToAsync(writeStream);
+        //});
         
         app.Run();
     }

@@ -16,12 +16,21 @@ public class FileConfiguration : IEntityTypeConfiguration<File>
         builder.Property(e => e.Id)
                .ValueGeneratedNever();
 
-        builder.Property(e => e.Path)
+        builder.Property(e => e.Edges)
                .HasMaxLength(128)
                .IsRequired();        
-        builder.Property(e => e.Json)
+        builder.Property(e => e.Text)
                .HasMaxLength(128)
                .IsRequired();
+        builder.Property(e => e.EdgesColor)
+               .HasMaxLength(128)
+               .IsRequired();
+        builder.Property(e => e.NodesColor)
+               .HasMaxLength(128)
+               .IsRequired();
+        builder.Property(e => e.IsDirected)
+                .HasDefaultValue(false)
+                .IsRequired();
 
         builder.Property(e => e.CreationDateTime)
                .IsRequired(false);

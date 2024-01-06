@@ -4,7 +4,7 @@ using Qel.Graph.Common;
 using Qel.Graph.Dal;
 using System.Reflection;
 
-namespace Qel.Graph;
+namespace Qel.Graph.Service;
 
 /// <summary>
 /// Точка входа в сервис отрисовки схем

@@ -11,17 +11,17 @@ public class CustomEdge
     /// Откуда ведётся связь
     /// </summary>
     [JsonPropertyName("from")]
-    public string? from { get; set; }
+    public string? From { get; set; }
 
     /// <summary>
     /// Куда ведётся связь
     /// </summary>
     [JsonPropertyName("to")]
-    public string? to { get; set; }
+    public string? To { get; set; }
 
     /// <summary>
     /// Название связи
     /// </summary>
     [JsonPropertyName("label")]
-    public string? label { get; set; }
+    public string? Label { get; set; }
 }

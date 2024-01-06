@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Qel.Graph.Domain\Qel.Graph.Domain.csproj" />
     <ProjectReference Include="..\..\Dal\Qel.Graph.Dal\Qel.Graph.Dal.csproj" />
+    <ProjectReference Include="..\..\Services\Web\Qel.Graph.Web\Qel.Graph.Web.csproj" />
   </ItemGroup>
 
   <ItemGroup>

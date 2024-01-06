@@ -17,32 +17,44 @@ public class RabbitMqProvider : IRabbtiMqProvider
                            routingKey: routingKey,
                            basicProperties: null,
                            body: body);
+        Console.WriteLine($"Сообщение отправлено: {message}");
     }
 
     public async Task<string?> Consume(string queueName) 
     {
         var channel = Connect(queueName);
 
-        var consumer = new EventingBasicConsumer(channel);
+        var consumer = new AsyncEventingBasicConsumer(channel);
 
         var tcs = new TaskCompletionSource<string>();
-        consumer.Received += (model, ea) =>
+        consumer.Received += async (model, ea) =>
         {
-            var body = ea.Body.ToArray();
-            var message = Encoding.UTF8.GetString(body);
-            tcs.TrySetResult(message);
+            try
+            {
+                var body = ea.Body.ToArray();
+                var message = Encoding.UTF8.GetString(body);
+                if (message != null)
+                {
+                    Console.WriteLine($"Сообщение получено: {message}");
+                    tcs.TrySetResult(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ошибка при обработке сообщения: {ex.Message}");
+                tcs.TrySetException(ex);
+            }
         };
+
         channel.BasicConsume(queue: queueName,
                            autoAck: true,
                            consumer: consumer);
         var result = await tcs.Task;
-        if(result != null) 
-        {
-            Console.WriteLine($"Сообщение получено: {result}");
-        }
-        
+
         return result;
     }
+
+
 
     private static IModel Connect(string queueName)
     {

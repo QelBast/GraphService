@@ -7,6 +7,8 @@ namespace Qel.Graph.Domain.Models;
 /// </summary>
 public class CustomGraph
 {
+    [JsonPropertyName("project_guid")]
+    public required Guid ProjectId { get; set; }
     /// <summary>
     /// Коллекция узлов
     /// </summary>

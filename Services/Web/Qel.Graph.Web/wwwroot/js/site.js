@@ -13,11 +13,19 @@ function removeEdge(button) {
 
     // Remove the row from the table
     row.parentNode.removeChild(row);
+    orderGraph();
 }
 
 
-function replaceImage(imageSource){
-    document.getElementById("pictura").src = imageSource;
+function replaceImage(imageSource) {
+    console.log('replacing image on path= '+imageSource)
+    fetch(imageSource, { cache: 'reload', mode: 'no-cors' }).then(
+        (success) => {
+            var img = document.getElementById("pictura");
+            var timestamp = new Date().getTime();
+            img.src = imageSource + "?" + timestamp;
+        }
+    )
 }
 
 
@@ -53,14 +61,31 @@ function queryBackendSave(payload){
             if (response !== undefined && response !== null) {
 
             } else {
-                
+                console.error('error in data saving');
             }
         }
     });
 }
 
-function queryBackendLoad(){
-    // NOT IMPLEMENTED
+function queryBackendLoad(guid){
+    console.log(guid);
+    $.ajax({
+        url: '/Home/WorkWithLoadJson',
+        type: 'POST',
+        data: "guid="+guid,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        success: function (response) {
+            if (response !== undefined && response !== null) {
+                console.log(response);
+                guid = response['project_guid'];
+                replaceImage("imgs/" + guid + ".svg");
+
+                //TODO: написать восстановление данных с приходящего json'a
+            } else {
+                console.error('error in data loading');
+            }
+        }
+    });
 }
 
 function getAllNodes(){
@@ -82,11 +107,15 @@ function getAllNodes(){
 }
 
 function getEdgesColor(){
-    return document.getElementById("nodeColorDropdown").value || "black";
+    return document.getElementById("edgeColorDropdown").value || "black";
+}
+
+function getIsDirected() {
+    return document.getElementById("isDirected").checked == true || false;
 }
 
 function getNodesColor(){
-    return document.getElementById("edgeColorDropdown").value || "black";
+    return document.getElementById("nodeColorDropdown").value || "black";
 }
 
 function tableToJson() {
@@ -129,6 +158,7 @@ function getProjectState(){
         project_guid: getCurrentGUID(),
         edges_color: getEdgesColor(),
         nodes_color: getNodesColor(),
+        directed: getIsDirected(),
     }
 }
 
@@ -138,18 +168,23 @@ function saveProjectState(){
 }
 
 function loadProjectState(guid){
-    // NOT IMPLEMENTED
+    if (confirm("If you click the 'Cancel' button your current data will be lost. If you want to save them, press the 'OK' button")) {
+        saveProjectState();
+     }
+    queryBackendLoad(guid);
 }
 
 function orderGraph(){
     globalState = getGlobalState();
-    return queryBackend({
+    return queryBackendGraphDraw({
         nodes:globalState.nodes,
         edges:globalState.edges,
         options:{
             edges_color: getEdgesColor(),
             nodes_color: getNodesColor(),
-        }
+            directed: getIsDirected(),
+        },
+        project_guid: getCurrentGUID(),
     })
 }
 
@@ -297,7 +332,8 @@ let undoStack = []; // Stack to keep track of changes
 
 if (!getCurrentGUID()) {
   const newID = generateGUID(); 
-  window.history.replaceState({}, document.title, `?project_guid=${newID}`);
+    window.history.replaceState({}, document.title, `?project_guid=${newID}`);
+    //saveProjectState();
 } else {
     loadProjectState(getCurrentGUID());
 }

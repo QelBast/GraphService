@@ -2,7 +2,7 @@
 using DotNetGraph.Extensions;
 using Qel.Graph.Domain.Models;
 
-namespace Qel.Graph.Engine;
+namespace Qel.Graph.Web.Processing;
 
 /// <summary>
 /// Класс, осуществляющий прорисовку фигур
@@ -39,6 +39,7 @@ public class DrawProvider
             .WithIdentifier($"{nodeData.Text}")
             .WithShape(nodeData.Shape)
             .WithLabel(nodeData.Label ?? nodeData.Text)
+            .WithColor(option.NodesColor)
             .WithFillColor(option.NodesColor)
             .WithFontColor(DotColor.Black)
             .WithStyle(DotNodeStyle.Dotted)
@@ -69,8 +70,8 @@ public class DrawProvider
         var myEdge = new DotEdge()
         .From(edgeData.From)
             .To(edgeData.To)
-            .WithArrowHead(DotEdgeArrowType.Box)
-            .WithArrowTail(DotEdgeArrowType.Diamond)
+            .WithArrowHead(DotEdgeArrowType.Crow)
+            .WithArrowTail(DotEdgeArrowType.Normal)
             .WithColor(option.EdgesColor)
             .WithFontColor(DotColor.Black)
             .WithLabel(edgeData.Label)

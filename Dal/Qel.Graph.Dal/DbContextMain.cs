@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
-using Qel.Graph.Dal.Entities.UserData;
 using System.Reflection;
 using File = Qel.Graph.Dal.Entities.File;
 
@@ -12,7 +11,6 @@ namespace Qel.Graph.Dal;
 /// </summary>
 public class DbContextMain(DbContextOptions<DbContextMain> options) : BaseDbContext(options)
 {
-    public virtual DbSet<Account> Accounts { get; set; }
     public virtual DbSet<File> Files { get; set; }
 
     /// <summary>
