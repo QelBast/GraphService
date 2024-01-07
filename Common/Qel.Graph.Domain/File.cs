@@ -1,4 +1,4 @@
-﻿using Qel.Graph.Domain.JsonModels;
+﻿using Qel.Graph.Domain.Models;
 using System.Text.Json.Serialization;
 
 namespace Qel.Graph.Domain;
@@ -18,7 +18,7 @@ public class File
     /// Связи в проекте
     /// </summary>
     [JsonPropertyName("edges")]
-    public required List<CustomEdgeAdvanced> Edges { get; set; }
+    public required List<CustomEdge> Edges { get; set; }
 
     /// <summary>
     /// Текст, по которому были созданы связи

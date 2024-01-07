@@ -1,0 +1,73 @@
+digraph "bbafe1b5-c8a7-4554-9954-760237273a44" {
+	this [
+		"shape"="rectangle"
+		"label"="this"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	some [
+		"shape"="rectangle"
+		"label"="some"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	text [
+		"shape"="rectangle"
+		"label"="text"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	word [
+		"shape"="rectangle"
+		"label"="word"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	asdf -> "" [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="green"
+		"fontcolor"="#000000"
+		"label"="asdf"
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+	word -> text [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="green"
+		"fontcolor"="#000000"
+		"label"="fusk"
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+	this -> some [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="green"
+		"fontcolor"="#000000"
+		"label"="qwer"
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+}

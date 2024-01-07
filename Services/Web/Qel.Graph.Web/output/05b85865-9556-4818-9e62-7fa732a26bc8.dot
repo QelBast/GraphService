@@ -1,0 +1,55 @@
+digraph "05b85865-9556-4818-9e62-7fa732a26bc8" {
+	is [
+		"shape"="rectangle"
+		"label"="is"
+		"color"="green"
+		"fillcolor"="green"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	is [
+		"shape"="rectangle"
+		"label"="is"
+		"color"="green"
+		"fillcolor"="green"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	with [
+		"shape"="rectangle"
+		"label"="with"
+		"color"="green"
+		"fillcolor"="green"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	potatoes [
+		"shape"="ellipse"
+		"label"="potatoes"
+		"color"="green"
+		"fillcolor"="green"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	with -> is [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="blue"
+		"fontcolor"="#000000"
+		"label"="sd"
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+}
