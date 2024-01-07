@@ -11,17 +11,23 @@ public class CustomEdge
     /// Откуда ведётся связь
     /// </summary>
     [JsonPropertyName("from")]
-    public string? From { get; set; }
+    public CustomNode? From { get; set; }
 
     /// <summary>
     /// Куда ведётся связь
     /// </summary>
     [JsonPropertyName("to")]
-    public string? To { get; set; }
+    public CustomNode? To { get; set; }
 
     /// <summary>
     /// Название связи
     /// </summary>
     [JsonPropertyName("label")]
-    public string? Label { get; set; }
+    public required string Label { get; set; }
+
+    /// <summary>
+    /// Цвет связи
+    /// </summary>
+    [JsonPropertyName("color")]
+    public string? Color { get; set; }
 }

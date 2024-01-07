@@ -26,20 +26,5 @@ public class File : BaseGuidEntity, ICreateAndModifyProperties, ISoftDelete
     /// </summary>
     public bool IsDirected { get; set; }
 
-    /// <summary>
-    /// Возвращает или задаёт сущность схемы
-    /// </summary>
-    public GraphEdgesCollection? GraphEdges { get; set; }
-
-    /// <summary>
-    /// Возвращает или задаёт коллекцию связей
-    /// </summary>
     public List<Edge>? Edges { get; set; }
-
-    #region Foreign Keys
-    /// <summary>
-    ///  Возвращает или задаёт идентификатор сущности, хранящей информацию о связях и узлах
-    /// </summary>
-    public long? GraphId { get; set; }
-    #endregion
 }

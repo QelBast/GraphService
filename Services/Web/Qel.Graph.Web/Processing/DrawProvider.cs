@@ -29,18 +29,17 @@ public class DrawProvider
     /// <param name="option">Настройки для схемы и в частности узлов</param>
     /// <param name="graph">Объект схемы</param>
     /// <returns></returns>
-    public static DotNode CreateNode(
-        CustomNode nodeData,
-        CustomOption option,
+    static DotNode CreateNode(
+        CustomNode? nodeData,
         ref DotGraph? graph
         )
     {   
         var myNode = new DotNode()
-            .WithIdentifier($"{nodeData.Text}")
-            .WithShape(nodeData.Shape)
-            .WithLabel(nodeData.Label ?? nodeData.Text)
-            .WithColor(option.NodesColor)
-            .WithFillColor(option.NodesColor)
+            .WithIdentifier($"{nodeData?.Text}")
+            .WithShape(nodeData?.Shape)
+            .WithLabel(nodeData?.Label ?? nodeData?.Text)
+            .WithColor(nodeData?.Color)
+            .WithFillColor(nodeData?.Color)
             .WithFontColor(DotColor.Black)
             .WithStyle(DotNodeStyle.Dotted)
             .WithWidth(0.5)
@@ -62,17 +61,18 @@ public class DrawProvider
     /// <returns></returns>
     public static DotEdge? CreateEdge(
         CustomEdge edgeData,
-        CustomOption option,
         ref DotGraph? graph
         )
     {
+        var fromNode = CreateNode(edgeData.From, ref graph);
+        var toNode = CreateNode(edgeData.To, ref graph);
         // Or with nodes and attributes
         var myEdge = new DotEdge()
-        .From(edgeData.From)
-            .To(edgeData.To)
+            .From(fromNode)
+            .To(toNode)
             .WithArrowHead(DotEdgeArrowType.Crow)
             .WithArrowTail(DotEdgeArrowType.Normal)
-            .WithColor(option.EdgesColor)
+            .WithColor(edgeData.Color)
             .WithFontColor(DotColor.Black)
             .WithLabel(edgeData.Label)
             .WithStyle(DotEdgeStyle.Dashed)

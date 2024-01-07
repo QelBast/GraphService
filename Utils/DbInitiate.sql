@@ -10,22 +10,16 @@ CREATE TABLE "Nodes"
 CREATE TABLE "Edges"
 (
     "Id" BIGINT PRIMARY KEY NOT NULL,
+    "FileId" BIGINT REFERENCES "Files" ("Id"),
     "Color" TEXT DEFAULT 'Red',
     "FromNodeId" REFERENCES "Nodes" ("Id"),
     "ToNodeId" REFERENCES  "Nodes" ("Id"),
     "Label" TEXT NOT NULL DEFAULT ''
 );
 
-CREATE TABLE "GraphEdgesCollections"
-(
-    "Id" BIGINT PRIMARY KEY NOT NULL,
-    "EdgeId" BIGINT REFERENCES "Edges" ("Id"),
-);
-
 CREATE TABLE "Files"
 (
     "Id" UUID PRIMARY KEY NOT NULL DEFAULT gen_random_uuid(),
-    "GraphId" BIGINT REFERENCES "GraphInfos" ("Id"),
     "Text" TEXT NOT NULL,
     "IsDirected" BOOLEAN NOT NULL DEFAULT false,
     "CreationDateTime" timestamp with time zone,

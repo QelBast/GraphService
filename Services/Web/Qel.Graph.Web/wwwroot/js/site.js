@@ -199,6 +199,26 @@ function orderGraph(){
         },
         project_guid: getCurrentGUID(),
     })
+    project_guid: "",
+    directed: "",
+    edges: [
+        {
+            color: "",
+            label: "",
+            from: {
+                text: "",
+                shape: "",
+                label: "",
+                color: ""
+            },
+            to: {
+                text: "",
+                shape: "",
+                label: "",
+                color: ""
+            }
+        }
+    ]
 }
 
 

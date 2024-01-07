@@ -30,10 +30,5 @@ public class FileConfiguration : IEntityTypeConfiguration<File>
         builder.Property(e => e.IsDeleted)
                .HasDefaultValue(false)
                .IsRequired();
-
-        builder.HasOne(e => e.GraphEdges)
-                .WithMany()
-                .HasForeignKey(e => e.GraphId)
-                .IsRequired(false);
     }
 }

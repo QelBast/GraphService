@@ -23,6 +23,11 @@ public class Edge : BaseEntity
     public long? ToNodeId { get; set;}
 
     /// <summary>
+    /// 
+    /// </summary>
+    public Guid? FileId { get; set; }
+
+    /// <summary>
     /// Возвращает или задаёт надпись на связи
     /// </summary>
     public string? Label { get; set;}
@@ -36,4 +41,9 @@ public class Edge : BaseEntity
     /// Возвращает или задаёт сущность связуемого узла
     /// </summary>
     public Node? ToNode { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public File? File { get; set; }
 }

@@ -32,5 +32,10 @@ public class EdgeConfiguration : IEntityTypeConfiguration<Edge>
                 .WithMany()
                 .HasForeignKey(e => e.ToNodeId)
                 .IsRequired(false);
+
+        builder.HasOne(e => e.File)
+               .WithMany(e => e.Edges)
+               .HasForeignKey(e => e.FileId)
+               .IsRequired();
     }
 }

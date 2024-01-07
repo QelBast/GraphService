@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Qel.Graph.Dal;
+using Qel.Graph.Dal.Entities;
+using Qel.Graph.Domain.Models;
 using Qel.Graph.Web.Processing;
 using System.Text.Json;
 
@@ -38,7 +40,7 @@ public class HomeController(ILogger<HomeController> logger, IWebHostEnvironment 
 
         var tcs = new TaskCompletionSource<string>();
 
-        string? filePath = string.Empty;
+        string? filePath;
 
         try
         {
@@ -86,6 +88,32 @@ public class HomeController(ILogger<HomeController> logger, IWebHostEnvironment 
         {
              var entity = JsonSerializer.Deserialize<Domain.File>(saveJson);
 
+            var edgeCollection = new List<Edge>();
+            foreach (var edge in entity!.Edges)
+            {
+                var edgeToDb = new Edge
+                {
+                    ToNode = new Node
+                    {
+                        Color = edge.To!.Color,
+                        Label = edge.To.Label,
+                        Shape = edge.To.Shape,
+                        Text = edge.To.Text,
+                    },
+                    FromNode = new Node
+                    {
+                        Color = edge.From!.Color,
+                        Label = edge.From.Label,
+                        Shape = edge.From.Shape,
+                        Text = edge.From.Text,
+                    },
+                    Color = edge.Color,
+                    Label = edge.Label,
+                    FileId = entity.Id
+                };
+                edgeCollection.Add(edgeToDb);
+            }
+
             var db = DbContextMain.CreateContext();
 
             var existEntity = await db.Files.FindAsync(entity!.Id);
@@ -98,33 +126,44 @@ public class HomeController(ILogger<HomeController> logger, IWebHostEnvironment 
             {
                 Id = entity!.Id,
                 Text = entity!.Text,
-                GraphEdges = new Dal.Entities.GraphEdgesCollection //TODO: Дописать и сделать одннобразными json'ы ходящие во фронтенде
-                {
-                    Edge = new Dal.Entities.Edge
-                    {
-                        FromNode = new Dal.Entities.Node
-                        {
-                            Color = "",
-                            Text = "",
-                            Label = "",
-                            Shape = "",
-                        },
-                        ToNode = new Dal.Entities.Node
-                        {
-                            Color = "",
-                            Text = "",
-                            Label = "",
-                            Shape = "",
-                        },
-                        Color = "",
-                        Label = "",
-                    }
-                },
+                Edges = edgeCollection,
                 IsDirected = entity!.IsDirected,
                 CreationDateTime = DateTime.UtcNow,
                 ModifyDateTime = DateTime.UtcNow,
             });
             await db.SaveChangesAsync();
+    //    project_guid: "",
+    //directed: "",
+    //edges:
+    //        [
+    //    {
+    //        color: "",
+    //        label: "",
+    //        from:
+    //            {
+    //            text: "",
+    //            shape: "",
+    //            label: "",
+    //            color: ""
+    //        },
+    //        to:
+    //            {
+    //            text: "",
+    //            shape: "",
+    //            label: "",
+    //            color: ""
+    //        }
+    //        }
+    //]
+    //not_edged_nodes:
+    //        [
+    //    {
+    //        text: "",
+    //        shape: "",
+    //        label: "",
+    //        color: ""
+    //    }
+    //]
         }
         catch
         {
@@ -140,7 +179,7 @@ public class HomeController(ILogger<HomeController> logger, IWebHostEnvironment 
     [HttpPost]
     public async Task<IActionResult?> WorkWithLoadJson(string guid)
     {
-        IActionResult? result;
+        IActionResult? result = null;
         var parsedGuid = Guid.Parse(guid);
         try
         {
@@ -148,26 +187,61 @@ public class HomeController(ILogger<HomeController> logger, IWebHostEnvironment 
 
             var entity = await db.Files.FindAsync(parsedGuid);
 
-            if (entity?.IsDeleted == false && entity != null) 
+            if (entity != null) 
             {
-                result = Json(new
+                var edgesCollection = new List<CustomEdge>();
+                foreach (var edge in entity.Edges!)
                 {
-                    project_guid = entity?.Id,
-                    edges = entity?.Edges,
-                    text = entity?.Text,
-                    edges_color = entity?.EdgesColor,
-                    nodes_color = entity?.NodesColor,
-                    directed = entity?.IsDirected,
-                });
+                    var edgeForLoad = new CustomEdge
+                    {
+                        From = new CustomNode 
+                        {
+                            Text = edge.FromNode!.Text,
+                            Color = edge.FromNode.Color,
+                            Label = edge.FromNode.Label,
+                            Shape = edge.FromNode.Shape,
+                        },
+                        To = new CustomNode
+                        {
+                            Text = edge.ToNode!.Text,
+                            Color = edge.ToNode.Color,
+                            Label = edge.ToNode.Label,
+                            Shape = edge.ToNode.Shape,
+                        },
+                        Color = edge.ToNode.Color,
+                        Label = edge.Label!
+                    };
+                    edgesCollection.Add(edgeForLoad);
+                }
+
+                var finalEntity = new Domain.File
+                {
+                    Id = entity!.Id,
+                    IsDeleted = entity.IsDeleted,
+                    IsDirected = true,
+                    Text = entity.Text,
+                    Edges = edgesCollection
+                };
+
+                if (entity?.IsDeleted == false)
+                {
+                    result = Json(new
+                    {
+                        project_guid = entity?.Id,
+                        edges = JsonSerializer.Serialize(entity!.Edges),
+                        text = entity?.Text,
+                        directed = entity?.IsDirected,
+                    });
+                }
+                else
+                {
+                    return Content(null!);
+                }
             }
-            else
-            {
-                return Content(null!);
-            }
-            
         }
-        catch
+        catch (Exception ex)
         {
+            throw;
             return Content(null!);
         }
         return result;
