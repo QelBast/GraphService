@@ -1,0 +1,11 @@
+digraph "f444a077-00df-43a5-9f5c-2431ba3198d7" {
+	"выпфв" -> "ыва" [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="blue"
+		"fontcolor"="#000000"
+		"label"="пверукер"
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+}

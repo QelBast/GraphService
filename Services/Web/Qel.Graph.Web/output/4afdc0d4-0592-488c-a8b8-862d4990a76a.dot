@@ -1,0 +1,44 @@
+graph "4afdc0d4-0592-488c-a8b8-862d4990a76a" {
+	this [
+		"shape"="rectangle"
+		"label"="this"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	some [
+		"shape"="rectangle"
+		"label"="some"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	potatoes [
+		"shape"="rectangle"
+		"label"="potatoes"
+		"color"="blue"
+		"fillcolor"="blue"
+		"fontcolor"="#000000"
+		"style"="dotted"
+		"width"=0.50
+		"height"=0.50
+		"penwidth"=1.50
+	]
+	this -- this [
+		"arrowhead"="crow"
+		"arrowtail"="normal"
+		"color"="red"
+		"fontcolor"="#000000"
+		"label"=""
+		"style"="dashed"
+		"penwidth"=1.50
+	]
+}

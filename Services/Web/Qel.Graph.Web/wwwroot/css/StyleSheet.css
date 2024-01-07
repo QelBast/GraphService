@@ -1,4 +1,4 @@
-﻿/* Reset the Universe */
+﻿﻿ /* Reset the Universe */
 * {
     margin: 0;
     padding: 0;
@@ -76,20 +76,20 @@ button {
     margin-top: 20px;
 }
 
-/* Header cells, because every structure needs a facade */
-#edgeTable th {
-    background-color: #666;
-    color: #fff;
-    padding: 10px;
-}
+    /* Header cells, because every structure needs a facade */
+    #edgeTable th {
+        background-color: #666;
+        color: #fff;
+        padding: 10px;
+    }
 
-/* Cells, where data is as relevant as stardust */
-#edgeTable td {
-    background-color: #333;
-    color: #fff;
-    padding: 8px;
-    border: 1px solid #666;
-}
+    /* Cells, where data is as relevant as stardust */
+    #edgeTable td {
+        background-color: #333;
+        color: #fff;
+        padding: 8px;
+        border: 1px solid #666;
+    }
 
 /* Aligning the dropdowns with the cosmic forces */
 .nodeDropdown,
@@ -102,12 +102,12 @@ button {
     border: 1px solid #666;
 }
 
-/* Custom dropdown option styling – because who cares */
-.nodeDropdown option,
-.labelDropdown option {
-    background-color: #333;
-    color: #fff;
-}
+    /* Custom dropdown option styling – because who cares */
+    .nodeDropdown option,
+    .labelDropdown option {
+        background-color: #333;
+        color: #fff;
+    }
 
 /* Styling the container for each interaction – fleeting moments in the abyss */
 .edge-container label,

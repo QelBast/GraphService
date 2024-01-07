@@ -1,6 +1,6 @@
 ﻿const textField = document.getElementById("content");
 
-function getText(){
+function getText() {
     // return Array.from(document.querySelectorAll("p"))
     // .map(e => e.textContent)
     // .join('\n');
@@ -18,24 +18,24 @@ function removeEdge(button) {
 
 
 function replaceImage(imageSource) {
-    console.log('replacing image on path= '+imageSource)
+    console.log('replacing image on path= ' + imageSource)
     fetch(imageSource, { cache: 'reload', mode: 'no-cors' }).then(
         (success) => {
             var img = document.getElementById("pictura");
             var timestamp = new Date().getTime();
-            img.src = imageSource + "?" + timestamp;
+            img.src = imageSource;
         }
     )
 }
 
 
-function queryBackendGraphDraw(payload){
+function queryBackendGraphDraw(payload) {
     console.log(payload);
     var inputJson = JSON.stringify(payload)
     $.ajax({
         url: '/Home/WorkWithInputJson',
         type: 'POST',
-        data: "inputJson="+inputJson,
+        data: "inputJson=" + inputJson,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function (response) {
             if (response !== undefined && response !== null) {
@@ -49,13 +49,13 @@ function queryBackendGraphDraw(payload){
 }
 
 
-function queryBackendSave(payload){
+function queryBackendSave(payload) {
     console.log(payload);
     var saveJson = JSON.stringify(payload)
     $.ajax({
         url: '/Home/WorkWithSaveJson',
         type: 'POST',
-        data: "saveJson="+saveJson,
+        data: "saveJson=" + saveJson,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function (response) {
             if (response !== undefined && response !== null) {
@@ -67,18 +67,21 @@ function queryBackendSave(payload){
     });
 }
 
-function queryBackendLoad(guid){
+
+
+
+function queryBackendLoad(guid) {
     console.log(guid);
     $.ajax({
         url: '/Home/WorkWithLoadJson',
         type: 'POST',
-        data: "guid="+guid,
+        data: "guid=" + guid,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         success: function (response) {
             if (response !== undefined && response !== null) {
-                console.log(response);
-                guid = response['project_guid'];
-                replaceImage("imgs/" + guid + ".svg");
+                return processLoadResponse(response);
+
+
 
                 //TODO: написать восстановление данных с приходящего json'a
             } else {
@@ -88,25 +91,25 @@ function queryBackendLoad(guid){
     });
 }
 
-function getAllNodes(){
+function getAllNodes() {
 
     function GraphNode(text, form, label) {
         this.text = text.trim().toLowerCase();
         this.form = form.trim().toLowerCase();
         this.label = label || null; // Set label to null if not provided
     }
-    
+
     allText = getText();
-    
+
     const regexPattern = /{{([\w: \-.,]+)}}/g;
 
-    arrayPrima = [...allText.matchAll(regexPattern)].map(e=>e[1]);
-    arraySecunda = arrayPrima.map(e=>new GraphNode(...e.split(":")));
+    arrayPrima = [...allText.matchAll(regexPattern)].map(e => e[1]);
+    arraySecunda = arrayPrima.map(e => new GraphNode(...e.split(":")));
     return arraySecunda;
 
 }
 
-function getEdgesColor(){
+function getEdgesColor() {
     return document.getElementById("edgeColorDropdown").value || "black";
 }
 
@@ -114,7 +117,7 @@ function getIsDirected() {
     return document.getElementById("isDirected").checked == true || false;
 }
 
-function getNodesColor(){
+function getNodesColor() {
     return document.getElementById("nodeColorDropdown").value || "black";
 }
 
@@ -138,20 +141,20 @@ function tableToJson() {
 }
 
 
-function getGlobalState(){
+function getGlobalState() {
     nodes = getAllNodes();
     edges = tableToJson();
     return {
         nodes: nodes,
         edges: edges,
-        nodeTextNames: nodes.map((e)=>e['text']),
-        edgeNames: edges.map((e)=>e['label']),
+        nodeTextNames: nodes.map((e) => e['text']),
+        edgeNames: edges.map((e) => e['label']),
         edgesColor: getEdgesColor(),
         nodesColor: getNodesColor(),
     }
 }
 
-function getProjectState(){
+function getProjectState() {
     return {
         edges: tableToJson(),
         text: getText(),
@@ -162,24 +165,34 @@ function getProjectState(){
     }
 }
 
-function saveProjectState(){
+function saveProjectState() {
     projectState = getProjectState();
     queryBackendSave(projectState);
 }
 
-function loadProjectState(guid){
-    if (confirm("If you click the 'Cancel' button your current data will be lost. If you want to save them, press the 'OK' button")) {
+function processLoadResponse(response) {
+    console.log(response);
+    guid = response['project_guid'];
+    replaceImage("imgs/" + guid + ".svg");
+    textField.value = response['text'];
+    document.getElementById("edgeColorDropdown").value = response['edges_color'];
+    document.getElementById("nodeColorDropdown").value = response['nodes_color'];
+    return response;
+}
+function loadProjectState(guid) {
+    /*if (confirm("If you click the 'Cancel' button your current data will be lost. If you want to save them, press the 'OK' button")) {
         saveProjectState();
-     }
-    queryBackendLoad(guid);
+     }*/
+    loadedData = queryBackendLoad(guid);
+
 }
 
-function orderGraph(){
+function orderGraph() {
     globalState = getGlobalState();
     return queryBackendGraphDraw({
-        nodes:globalState.nodes,
-        edges:globalState.edges,
-        options:{
+        nodes: globalState.nodes,
+        edges: globalState.edges,
+        options: {
             edges_color: getEdgesColor(),
             nodes_color: getNodesColor(),
             directed: getIsDirected(),
@@ -192,7 +205,7 @@ function orderGraph(){
 
 
 function undo() {
-    
+
 
     if (undoStack.length > 0) {
         // Pop the previous value from the stack and set it back to the text field
@@ -201,10 +214,10 @@ function undo() {
 }
 
 
-function renewLabelDropDowns(valuesArray, selector){
+function renewLabelDropDowns(valuesArray, selector) {
     console.log(valuesArray);
     // Get the dropdown elements
-    document.querySelectorAll(selector).forEach((toDropdown)=>{
+    document.querySelectorAll(selector).forEach((toDropdown) => {
         // Clear existing options
         toDropdown.innerHTML = "";
         // Add options to the dropdown
@@ -262,15 +275,15 @@ function addRowToEdgeTable(from, to, edge) {
 
 function addEdge() {
     const fromDropdown = document.getElementById("fromDropdown");
-    if (fromDropdown.value === "custom"){
+    if (fromDropdown.value === "custom") {
         fromValue = prompt("Enter custom 'from' value:")
         addNode(fromValue)
     } else {
         fromValue = fromDropdown.value
     }
-    
+
     const toDropdown = document.getElementById("toDropdown");
-    if (toDropdown.value === "custom"){
+    if (toDropdown.value === "custom") {
         toValue = prompt("Enter custom 'to' value:")
         addNode(toValue)
     } else {
@@ -294,14 +307,14 @@ function addEdge() {
 }
 
 
-function eventListener (event) {
+function eventListener(event) {
     if (event.ctrlKey && event.key === "z") { // Check if Ctrl+Z is pressed
         undo(); // Perform undo operation
     } else if (event.altKey && event.key === "x") { // Check if Alt+X is pressed
         const textField = document.getElementById("content");
         const selectedText = textField.value.substring(textField.selectionStart, textField.selectionEnd);
         addNode(selectedText);
-        
+
     } else if (event.altKey && event.key === "c") { // Check if Alt+C is pressed
         addEdge();
     }
@@ -309,33 +322,31 @@ function eventListener (event) {
 
 
 function generateGUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }
 
 
-function getCurrentGUID(){
-// Check if the URL already has an ID
-const urlParams = new URLSearchParams(window.location.search);
-const existingID = urlParams.get('project_guid');
-return existingID;
+function getCurrentGUID() {
+    // Check if the URL already has an ID
+    const urlParams = new URLSearchParams(window.location.search);
+    const existingID = urlParams.get('project_guid');
+    return existingID;
 }
 
 
 console.log(getAllNodes());
 let undoStack = []; // Stack to keep track of changes
- document.addEventListener("keydown", eventListener);
+document.addEventListener("keydown", eventListener);
 
 
 if (!getCurrentGUID()) {
-  const newID = generateGUID(); 
+    const newID = generateGUID();
     window.history.replaceState({}, document.title, `?project_guid=${newID}`);
     //saveProjectState();
 } else {
     loadProjectState(getCurrentGUID());
 }
-
-
