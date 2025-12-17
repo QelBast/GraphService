@@ -65,21 +65,30 @@ public class DrawProvider
         ref DotGraph? graph
         )
     {
-        // Or with nodes and attributes
-        var myEdge = new DotEdge()
-        .From(edgeData.From)
-            .To(edgeData.To)
-            .WithArrowHead(DotEdgeArrowType.Box)
-            .WithArrowTail(DotEdgeArrowType.Diamond)
-            .WithColor(option.EdgesColor)
-            .WithFontColor(DotColor.Black)
-            .WithLabel(edgeData.Label)
-            .WithStyle(DotEdgeStyle.Dashed)
-            .WithPenWidth(1.5);
+        try
+        {
+            // Or with nodes and attributes
+            var myEdge = new DotEdge()
+            .From(edgeData.From?.Text)
+                .To(edgeData.To?.Text)
+                .WithArrowHead(DotEdgeArrowType.Box)
+                .WithArrowTail(DotEdgeArrowType.Diamond)
+                .WithColor(option.EdgesColor)
+                .WithFontColor(DotColor.Black)
+                .WithLabel(edgeData.Label)
+                .WithStyle(DotEdgeStyle.Dashed)
+                .WithPenWidth(1.5);
 
-        // Add the edge to the graph
-        graph = graph.Add(myEdge);
+            // Add the edge to the graph
+            graph = graph.Add(myEdge);
 
-        return myEdge;
+            return myEdge;
+
+        }
+        catch (Exception)
+        {
+
+        }
+        return null;
     }
 }

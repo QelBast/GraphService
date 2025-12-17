@@ -1,0 +1,22 @@
+name: graph
+services:
+  web:
+    build:
+      context: .
+      dockerfile: .\Services\Web\Qel.Graph.Web\Dockerfile
+    restart: unless-stopped
+    ports: 
+      - "55232:8080"
+  #back:
+  #  build:
+  #    context: .
+  #    dockerfile: .\Services\Graph\Qel.Graph.Service\Dockerfile
+  #  restart: unless-stopped
+  pg:
+    image: postgres:alpine3.20
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USERNAME=postgres
+    ports: 
+      - "55000:5432"

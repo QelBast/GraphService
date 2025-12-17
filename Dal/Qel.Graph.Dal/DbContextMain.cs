@@ -13,7 +13,7 @@ namespace Qel.Graph.Dal;
 public class DbContextMain(DbContextOptions<DbContextMain> options) : BaseDbContext(options)
 {
     public virtual DbSet<File> Files { get; set; }
-    public virtual DbSet<GraphEdgesCollection> EdgesCollection { get; set; }
+    //public virtual DbSet<GraphEdgesCollection> EdgesCollection { get; set; }
     public virtual DbSet<Edge> Edges { get; set; }
     public virtual DbSet<Node> Nodes { get; set; }
 
@@ -40,7 +40,7 @@ public class DbContextMain(DbContextOptions<DbContextMain> options) : BaseDbCont
     public static DbContextMain CreateContext()
     {
         var config =
-            new ConfigurationBuilder().AddJsonFile("appsettings.json")
+            new ConfigurationBuilder().AddJsonFile("dbsettings.json")
                                       .Build();
 
         var connectionString = config.GetConnectionString(nameof(DbContextMain));
